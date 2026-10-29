@@ -1,0 +1,15 @@
+{
+  "name": "omniroute-proxy",
+  "version": "1.0.0",
+  "description": "Unified API proxy & model tier router for heterogeneous model inference",
+  "command": "python",
+  "args": ["plugins/omniroute-proxy/proxy.py"],
+  "capabilities": {
+    "tools": [
+      {
+        "name": "route_inference",
+        "description": "Determine optimal model tier (Tier 1 fast vs Tier 2 reasoning vs Tier 3 consensus) and return routing metadata"
+      }
+    ]
+  }
+}

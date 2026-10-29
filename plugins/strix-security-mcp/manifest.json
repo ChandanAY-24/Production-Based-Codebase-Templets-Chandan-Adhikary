@@ -1,0 +1,19 @@
+{
+  "name": "strix-security-mcp",
+  "version": "1.0.0",
+  "description": "AST scanner & dependency vulnerability checker",
+  "command": "python",
+  "args": ["plugins/strix-security-mcp/server.py"],
+  "capabilities": {
+    "tools": [
+      {
+        "name": "scan_ast_security",
+        "description": "Audit Python/JS file for unsafe sinks and secret exposures"
+      },
+      {
+        "name": "audit_dependencies",
+        "description": "Check requirements.txt against known CVE databases"
+      }
+    ]
+  }
+}

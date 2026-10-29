@@ -1,0 +1,22 @@
+{
+  "name": "project-codebase-sdd",
+  "version": "1.0.0",
+  "description": "Spec-Driven Development (SDD) & Multi-Agent Coding Framework",
+  "main": "backend/main.py",
+  "scripts": {
+    "start": "python backend/main.py",
+    "test": "python -m unittest discover -s tests -p \"test_*.py\"",
+    "guard": "python hooks/commit-guardian.py",
+    "memory:sync": "python connectors/vector-memory/store.py --sync",
+    "openclaw:check": "python connectors/openclaw-daemon/daemon.py --once"
+  },
+  "keywords": [
+    "spec-driven-development",
+    "agentic-coding",
+    "mcp",
+    "super-tdd",
+    "surgical-diff"
+  ],
+  "author": "Antigravity SDD Team",
+  "license": "MIT"
+}

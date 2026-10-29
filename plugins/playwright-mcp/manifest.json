@@ -1,0 +1,19 @@
+{
+  "name": "playwright-mcp",
+  "version": "1.0.0",
+  "description": "Headless browser capture & DOM automation tools via Playwright",
+  "command": "python",
+  "args": ["plugins/playwright-mcp/server.py"],
+  "capabilities": {
+    "tools": [
+      {
+        "name": "browser_navigate",
+        "description": "Navigate to URL and return rendered DOM/screenshot"
+      },
+      {
+        "name": "browser_snapshot",
+        "description": "Capture accessibility tree and interactive elements"
+      }
+    ]
+  }
+}

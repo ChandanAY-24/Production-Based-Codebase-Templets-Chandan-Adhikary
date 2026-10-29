@@ -1,0 +1,30 @@
+# Environments & Dependencies
+.venv/
+venv/
+node_modules/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+
+# Local databases & state
+*.db
+*.sqlite
+*.sqlite3
+database/app.db
+connectors/vector-memory/memory.db
+connectors/vector-memory/memory.db-wal
+connectors/vector-memory/memory.db-shm
+
+# Environment & credentials
+.env
+.env.local
+
+# IDE & OS files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+dist/
+build/

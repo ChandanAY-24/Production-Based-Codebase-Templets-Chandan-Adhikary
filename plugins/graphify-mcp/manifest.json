@@ -1,0 +1,19 @@
+{
+  "name": "graphify-mcp",
+  "version": "1.0.0",
+  "description": "Symbol graph navigation & codebase knowledge graph MCP server",
+  "command": "python",
+  "args": ["plugins/graphify-mcp/server.py"],
+  "capabilities": {
+    "tools": [
+      {
+        "name": "find_symbol",
+        "description": "Locate functions, classes, and variables across codebase AST"
+      },
+      {
+        "name": "get_symbol_dependencies",
+        "description": "Return graph of dependencies and callers for a target symbol"
+      }
+    ]
+  }
+}

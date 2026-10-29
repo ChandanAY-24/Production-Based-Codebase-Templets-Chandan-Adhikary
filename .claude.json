@@ -1,0 +1,30 @@
+{
+  "project": "SDD-Agentic-Coding-Demo",
+  "version": "1.0.0",
+  "constitution": "docs/CONSTITUTION.md",
+  "rules": "docs/RULES.md",
+  "skillsPath": "skills/",
+  "hooks": {
+    "preRun": "hooks/pre-agent-run.sh",
+    "postGen": "hooks/post-code-generation.sh",
+    "preCommit": "hooks/commit-guardian.py"
+  },
+  "mcpServers": {
+    "graphify": {
+      "command": "python",
+      "args": ["plugins/graphify-mcp/server.py"]
+    },
+    "playwright": {
+      "command": "python",
+      "args": ["plugins/playwright-mcp/server.py"]
+    },
+    "strix-security": {
+      "command": "python",
+      "args": ["plugins/strix-security-mcp/server.py"]
+    },
+    "omniroute": {
+      "command": "python",
+      "args": ["plugins/omniroute-proxy/proxy.py"]
+    }
+  }
+}

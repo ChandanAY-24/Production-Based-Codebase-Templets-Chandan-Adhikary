@@ -1,0 +1,26 @@
+{
+  "editor.formatOnSave": true,
+  "editor.tabSize": 4,
+  "editor.insertSpaces": true,
+  "files.eol": "\n",
+  "files.trimTrailingWhitespace": true,
+  "python.analysis.typeCheckingMode": "basic",
+  "mcpServers": {
+    "graphify": {
+      "command": "python",
+      "args": ["plugins/graphify-mcp/server.py"]
+    },
+    "playwright": {
+      "command": "python",
+      "args": ["plugins/playwright-mcp/server.py"]
+    },
+    "strix-security": {
+      "command": "python",
+      "args": ["plugins/strix-security-mcp/server.py"]
+    },
+    "omniroute": {
+      "command": "python",
+      "args": ["plugins/omniroute-proxy/proxy.py"]
+    }
+  }
+}

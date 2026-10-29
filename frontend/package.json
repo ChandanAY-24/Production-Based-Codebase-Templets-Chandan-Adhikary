@@ -1,0 +1,15 @@
+{
+  "name": "sdd-agentic-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Spec-Driven Development Frontend Cockpit",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test:e2e": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.45.0"
+  }
+}

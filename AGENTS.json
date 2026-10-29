@@ -1,0 +1,35 @@
+{
+  "name": "SDD-Agentic-Swarm",
+  "version": "1.0.0",
+  "roster": [
+    {
+      "name": "ProductManager",
+      "spec": "docs/PRD.md",
+      "role": "Requirement extraction, user journeys, /grill-me facilitation"
+    },
+    {
+      "name": "Architect",
+      "spec": "docs/SPEC.md",
+      "role": "Invariants enforcement, schema contracts, database design"
+    },
+    {
+      "name": "QA-Engineer",
+      "spec": "skills/super-tdd.md",
+      "role": "Red-Green-Refactor test authoring, E2E validation"
+    },
+    {
+      "name": "Developer",
+      "spec": "docs/RULES.md",
+      "role": "Surgical code implementation, minimal contiguous diff generation"
+    },
+    {
+      "name": "ConsensusReviewer",
+      "spec": "skills/multi-model-review.md",
+      "role": "Multi-model review, AST security validation"
+    }
+  ],
+  "gates": {
+    "astScan": "hooks/commit-guardian.py --ast-only",
+    "preCommit": "hooks/commit-guardian.py"
+  }
+}

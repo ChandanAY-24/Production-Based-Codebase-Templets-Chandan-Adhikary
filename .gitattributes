@@ -1,0 +1,6 @@
+# Enforce LF endings on shell scripts and python sources
+*.sh text eol=lf
+*.py text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+*.sql text eol=lf
