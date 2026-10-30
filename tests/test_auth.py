@@ -11,8 +11,13 @@ Tests:
 - AC-01: Server-side role-based access control and deny-by-default
 """
 
+import os
+import sys
 import time
 import unittest
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
 from auth import (
     AuthService,
     UserRole,

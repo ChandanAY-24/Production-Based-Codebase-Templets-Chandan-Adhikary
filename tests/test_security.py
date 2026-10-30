@@ -12,12 +12,16 @@ Verifies:
 - LOG-06: Vulnerability disclosure endpoint (/.well-known/security.txt)
 """
 
+import os
+import sys
 import io
 import email
 import json
 import unittest
 import urllib.request
 import urllib.error
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from src.rate_limiter import SlidingWindowRateLimiter
 from src.schemas import TaskCreateSchema
@@ -38,6 +42,27 @@ class _MockSocket:
 
     def sendall(self, b: bytes):
         self.output.write(b)
+
+    def settimeout(self, timeout):
+        pass
+
+    def setsockopt(self, *args, **kwargs):
+        pass
+
+    def getpeername(self):
+        return ("127.0.0.1", 8000)
+
+    def getsockname(self):
+        return ("127.0.0.1", 8000)
+
+    def fileno(self):
+        return -1
+
+    def close(self):
+        pass
+
+    def shutdown(self, how=None):
+        pass
 
 class _MockHTTPResponse(io.BytesIO):
     def __init__(self, body: bytes, status: int, headers):
@@ -84,7 +109,7 @@ def _sandboxed_urlopen(req, timeout=None):
 
     sock = _MockSocket(raw_bytes)
     class _FakeServer:
-        pass
+        server_address = ("127.0.0.1", 8000)
     APIRequestHandler(sock, ("127.0.0.1", 8000), _FakeServer())
 
     header_part, _, body = sock.output.getvalue().partition(b"\r\n\r\n")

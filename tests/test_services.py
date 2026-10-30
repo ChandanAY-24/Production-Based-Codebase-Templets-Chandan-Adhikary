@@ -4,7 +4,12 @@ Reference: skills/super-tdd.md & docs/SPEC.md
 Uses standard library unittest for zero-dependency execution.
 """
 
+import os
+import sys
 import unittest
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
 from src.models import AgentTask, TaskStatus
 from src.services import TaskService
 
