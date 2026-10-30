@@ -46,4 +46,10 @@ jobs:
         env:
           PYTHONPATH: .
         run: |
-          python -m unittest discover -s tests -p "test_*.py" -v
+          python -m unittest discover -s tests -p "test_*.py" -v 2>&1 | tee test_results.txt || {
+            grep -E "(FAIL|ERROR|Error|AssertionError|Exception):" test_results.txt | while IFS= read -r line; do
+              echo "::error title=Test Failure::$line"
+            done
+            cat test_results.txt
+            exit 1
+          }
