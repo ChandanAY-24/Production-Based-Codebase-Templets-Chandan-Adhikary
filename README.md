@@ -22,6 +22,13 @@
 │   ├── AGENTS.md                    # [10. gstack / 12. ECC] Roster: PM, Architect, QA, Consensus Reviewer
 │   ├── PHASES.md                    # Milestone exit criteria & TDD deliverables
 │   ├── DATABASE.md                  # ER schemas, indexes, migration rollback policies
+│   ├── CODE-REVIEW.md               # Five quality gates, surgical review checklists & consensus protocols
+│   ├── TESTING.md                   # Super-TDD (Red-Green-Refactor), negative security testing & pytest suite
+│   ├── TASKS.md                     # Active task tracking board, priorities (P0-P3) & lifecycle states
+│   ├── SECURITY.md                  # Comprehensive security guide, AST scanning rules & Gate 3 controls
+│   ├── AUTH.md                      # Token lifecycle (JWT/scrypt), RBAC matrix, IDOR isolation & MFA/TOTP
+│   ├── GITHUB-WORKFLOW.md           # 7-phase git workflow, conventional commits & human-in-the-loop gates
+│   ├── PERFORMANCE-SCALABILITY.md   # Concurrency tiers (100-10k users), Core Web Vitals & query optimization
 │   ├── AUTHENTICATION-SECURITY.md   # [15. strix] Threat models, zero-trust constraints, AST security rules
 │   ├── ERROR-HANDLING-TRACKER.md    # Known edge cases, bug reproduction traces
 │   ├── CONSTITUTION.md              # [4. i-have-adhd / 3. karpathy] Core agent guardrails (concise, direct)
@@ -29,8 +36,10 @@
 │   ├── HOOKS.md                     # Documentation of lifecycle interception scripts
 │   └── reference-artifacts/         # Supplementary architecture specs, wireframes, checklists
 │
-├── specs/                           # Specifications and Security Standards
-│   └── 001-Spec-Security-guide.md   # Production-Grade Security Checks Specification (102 checks)
+├── specs/                           # Specifications and Standards
+│   ├── 001-Spec-Security-guide.md   # Production-Grade Security Checks Specification (102 checks)
+│   ├── 002-Spec-Git-Workflow-Rules.md # GitHub Workflow & 5 Quality Gates Specification
+│   └── 003-Spec-Scalibility-optimization.md # Website Audit, Performance Optimization & Scalability Standard
 │
 ├── security/                        # Project Security Profiles, Reports & Threat Models
 │   ├── PROJECT_PROFILE.md           # Detected project security flags, stack, attack surface

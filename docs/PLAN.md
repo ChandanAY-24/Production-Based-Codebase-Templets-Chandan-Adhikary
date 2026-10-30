@@ -25,11 +25,12 @@ flowchart TD
 
 ### Phase 1: Foundation & Scaffold Verification [CURRENT]
 - [x] Directory structure provisioning (`docs/`, `skills/`, `hooks/`, `plugins/`, `connectors/`).
-- [ ] Core documentation generation (all 18 files).
-- [ ] Skill implementation (all 8 declarative skills).
-- [ ] Lifecycle hook hardening (bash + python scripts).
+- [x] Core documentation generation (all baseline files + `CODE-REVIEW.md`, `TESTING.md`, `TASKS.md`, `SECURITY.md`, `AUTH.md`, `GITHUB-WORKFLOW.md`, `PERFORMANCE-SCALABILITY.md`).
+- [x] Skill implementation (all 8 declarative skills).
+- [x] Lifecycle hook hardening (bash + python scripts).
 - [ ] MCP tool plugin interfaces & connectors setup.
-- [ ] Root configuration sync (`.claude.json`, `AGENTS.json`, `settings.json`, `.env.example`).
+- [x] Root configuration sync (`.claude.json`, `AGENTS.json`, `settings.json`, `.env.example`).
+- [ ] Active task board tracking in [TASKS.md](TASKS.md).
 
 ### Phase 2: Spec-Driven Feature Verification
 - [ ] Establish sample domain module in `src/` with Red-Green Super-TDD.

@@ -12,40 +12,104 @@ Verifies:
 - LOG-06: Vulnerability disclosure endpoint (/.well-known/security.txt)
 """
 
+import io
+import email
 import json
-import socket
-import threading
-import time
 import unittest
 import urllib.request
 import urllib.error
-from http.server import HTTPServer
 
-from src.auth import verify_token, require_role, AuthUser
 from src.rate_limiter import SlidingWindowRateLimiter
-from src.schemas import TaskCreateSchema, PatchVerifySchema
+from src.schemas import TaskCreateSchema
 from pydantic import ValidationError
-from backend.main import APIRequestHandler, task_service, rate_limiter
+from backend.main import APIRequestHandler, rate_limiter
 
-def find_free_port() -> int:
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-        s.bind(("", 0))
-        return s.getsockname()[1]
+class _MockSocket:
+    def __init__(self, raw_bytes: bytes):
+        self.raw_bytes = raw_bytes
+        self.output = io.BytesIO()
+
+    def makefile(self, mode: str, *args, **kwargs):
+        if "b" in mode and "r" in mode:
+            return io.BytesIO(self.raw_bytes)
+        elif "b" in mode and "w" in mode:
+            return self.output
+        return io.BytesIO()
+
+    def sendall(self, b: bytes):
+        self.output.write(b)
+
+class _MockHTTPResponse(io.BytesIO):
+    def __init__(self, body: bytes, status: int, headers):
+        super().__init__(body)
+        self.status = status
+        self.headers = headers
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *args):
+        pass
+
+def _sandboxed_urlopen(req, timeout=None):
+    if isinstance(req, str):
+        url = req
+        headers = {}
+        data = None
+        method = "GET"
+    else:
+        url = req.full_url
+        headers = dict(req.headers)
+        data = req.data
+        method = req.get_method()
+
+    from urllib.parse import urlparse
+    parsed = urlparse(url)
+    path = parsed.path
+    if parsed.query:
+        path += "?" + parsed.query
+
+    raw_req = [f"{method} {path} HTTP/1.1".encode("ascii"), b"Host: 127.0.0.1"]
+    has_cl = any(k.lower() == "content-length" for k in headers)
+    if not has_cl and data is not None:
+        raw_req.append(f"Content-Length: {len(data)}".encode("ascii"))
+    for k, v in headers.items():
+        if k.lower() != "host":
+            raw_req.append(f"{k}: {v}".encode("ascii"))
+    raw_req.append(b"")
+    raw_req.append(b"")
+    raw_bytes = b"\r\n".join(raw_req)
+    if data:
+        raw_bytes += data
+
+    sock = _MockSocket(raw_bytes)
+    class _FakeServer:
+        pass
+    APIRequestHandler(sock, ("127.0.0.1", 8000), _FakeServer())
+
+    header_part, _, body = sock.output.getvalue().partition(b"\r\n\r\n")
+    lines = header_part.split(b"\r\n")
+    status_line = lines[0].decode("utf-8", errors="replace")
+    parts = status_line.split(" ", 2)
+    status = int(parts[1]) if len(parts) > 1 else 500
+    msg = parts[2] if len(parts) > 2 else ""
+    hdrs = email.message_from_bytes(b"\r\n".join(lines[1:]))
+
+    if status >= 400:
+        fp = io.BytesIO(body)
+        raise urllib.error.HTTPError(url, status, msg, hdrs, fp)
+    return _MockHTTPResponse(body, status, hdrs)
 
 class TestSecurityControls(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.port = find_free_port()
-        cls.server = HTTPServer(("127.0.0.1", cls.port), APIRequestHandler)
-        cls.server_thread = threading.Thread(target=cls.server.serve_forever, daemon=True)
-        cls.server_thread.start()
-        cls.base_url = f"http://127.0.0.1:{cls.port}"
-        time.sleep(0.1)  # Warmup server thread
+        cls.base_url = "http://127.0.0.1:8000"
+        cls._orig_urlopen = urllib.request.urlopen
+        urllib.request.urlopen = _sandboxed_urlopen
 
     @classmethod
     def tearDownClass(cls):
-        cls.server.shutdown()
-        cls.server.server_close()
+        urllib.request.urlopen = cls._orig_urlopen
 
     def setUp(self):
         rate_limiter.reset()

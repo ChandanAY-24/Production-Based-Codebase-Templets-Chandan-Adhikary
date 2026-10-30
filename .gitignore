@@ -20,6 +20,8 @@ connectors/vector-memory/memory.db-shm
 # Environment & credentials
 .env
 .env.local
+.claude/*.json
+!.claude/skills/
 
 # IDE & OS files
 .DS_Store
