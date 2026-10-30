@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SDD Agentic Coding Cockpit</title>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self';">
   <style>
     :root {
       --bg-primary: #09090b;
@@ -114,8 +115,13 @@
       <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1rem;">
         Invariants: Zero unbounded mutation, Deterministic rollback, Surgical diff bounds
       </div>
-      <button onclick="alert('Verification consensus signed off.')">View Verification</button>
+      <button id="view-verification-btn" type="button">View Verification</button>
     </div>
   </div>
+  <script>
+    document.getElementById("view-verification-btn")?.addEventListener("click", () => {
+      console.log("Verification consensus signed off.");
+    });
+  </script>
 </body>
 </html>

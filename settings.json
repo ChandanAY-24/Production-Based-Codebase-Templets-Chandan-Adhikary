@@ -17,10 +17,6 @@
     "strix-security": {
       "command": "python",
       "args": ["plugins/strix-security-mcp/server.py"]
-    },
-    "omniroute": {
-      "command": "python",
-      "args": ["plugins/omniroute-proxy/proxy.py"]
     }
   }
 }

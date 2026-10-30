@@ -1,6 +1,7 @@
 # AGENTS: Autonomous Swarm Roster & Responsibilities
 > Reference: [10. gstack / 12. ECC (Ensemble Consensus Coalition)]
 > Role Topology: Specialized, segregated responsibilities
+> Security Guardrail: Follow specs/001-Spec-Security-guide.md for every security review and every new feature.
 
 ---
 

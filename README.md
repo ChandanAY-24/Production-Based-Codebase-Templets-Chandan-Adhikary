@@ -29,6 +29,29 @@
 │   ├── HOOKS.md                     # Documentation of lifecycle interception scripts
 │   └── reference-artifacts/         # Supplementary architecture specs, wireframes, checklists
 │
+├── specs/                           # Specifications and Security Standards
+│   └── 001-Spec-Security-guide.md   # Production-Grade Security Checks Specification (102 checks)
+│
+├── security/                        # Project Security Profiles, Reports & Threat Models
+│   ├── PROJECT_PROFILE.md           # Detected project security flags, stack, attack surface
+│   ├── SECURITY_REPORT.md           # Full audit report and release gate verdict
+│   ├── THREAT_MODEL.md              # STRIDE analysis and trust boundary mapping
+│   └── RUNBOOK.md                   # Incident response, containment, and rotation procedures
+│
+├── auth/                            # Authentication & Authorization Subsystem (AUTH-01 to AUTH-06)
+│   ├── README.md                    # Subsystem overview, quickstart & integration contracts
+│   ├── SPEC.md                      # Formal domain specifications, contracts & invariants
+│   ├── THREAT_MODEL.md              # STRIDE threat model for credentials, tokens, and sessions
+│   ├── RUNBOOK.md                   # Emergency revocation, key rotation & lockout recovery SOPs
+│   ├── models.py                    # Domain models (AuthUser, UserRecord, TokenPair, Session)
+│   ├── passwords.py                 # Memory-hard KDF (scrypt / PBKDF2), timing-safe verify
+│   ├── tokens.py                    # HMAC-SHA256 signed JWTs & single-use rotating refresh tokens
+│   ├── session.py                   # Server-side session store with idle/absolute TTL
+│   ├── mfa.py                       # RFC 6238 TOTP 2FA engine & single-use backup recovery codes
+│   └── service.py                   # Central AuthService orchestrating credentials and RBAC
+│
+├── payment/                         # Payment Integration Gateway (Placeholder)
+│
 ├── skills/                          # Declarative markdown instructions (usable by any agent)
 │   ├── grill-me.md                  # [1. grill-me] Pre-implementation edge-case extraction interview
 │   ├── super-tdd.md                 # [2. superpowers] Red-Green-Refactor test cycle enforcement
@@ -78,6 +101,15 @@ python -m unittest discover -s tests -p "test_*.py" -v
 ### 2. Security Guardian & AST Audit
 ```bash
 python hooks/commit-guardian.py
+```
+
+### 3. Production Security Spec Verification
+```bash
+# Run full unit and security suite
+python -m unittest discover -s tests -p "test_*.py" -v
+# Run dependency vulnerability audit
+python -m pip_audit -r requirements.txt
+# Follow specs/001-Spec-Security-guide.md for every security review and new feature
 ```
 
 ### 3. Sync Vector Memory

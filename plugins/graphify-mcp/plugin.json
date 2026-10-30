@@ -1,0 +1,6 @@
+{
+  "name": "graphify-mcp",
+  "version": "1.0.0",
+  "description": "Symbol graph navigation & codebase knowledge graph MCP server",
+  "enabled": true
+}

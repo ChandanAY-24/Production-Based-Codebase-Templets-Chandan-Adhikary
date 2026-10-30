@@ -26,6 +26,7 @@ class AgentTask:
     status: TaskStatus = TaskStatus.PENDING
     assigned_agent: str = "TDD-Engineer"
     execution_plan: List[str] = field(default_factory=list)
+    user_id: Optional[str] = None
     created_at: str = field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
     updated_at: str = field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
 

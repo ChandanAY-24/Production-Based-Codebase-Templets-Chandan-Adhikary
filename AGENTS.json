@@ -30,6 +30,18 @@
   ],
   "gates": {
     "astScan": "hooks/commit-guardian.py --ast-only",
-    "preCommit": "hooks/commit-guardian.py"
-  }
+    "preCommit": "hooks/commit-guardian.py",
+    "preRunHook": "hooks/pre-agent-run.sh",
+    "postGenHook": "hooks/post-code-generation.sh",
+    "securitySpec": "specs/001-Spec-Security-guide.md"
+  },
+  "activePlugins": [
+    "graphify-mcp",
+    "playwright-mcp",
+    "strix-security-mcp"
+  ],
+  "disabledPlugins": [
+    "omniroute-proxy"
+  ],
+  "securityInstruction": "Follow specs/001-Spec-Security-guide.md for every security review and every new feature."
 }

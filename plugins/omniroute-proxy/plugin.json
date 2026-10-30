@@ -1,0 +1,6 @@
+{
+  "name": "omniroute-proxy",
+  "version": "1.0.0",
+  "description": "Heterogeneous inference router (EXCLUDED / INACTIVE)",
+  "enabled": false
+}

@@ -81,7 +81,7 @@ def main():
     print("[COMMIT-GUARDIAN] Running security and AST audit...")
     all_violations = []
 
-    target_dirs = [root / "src", root / "backend", root / "connectors", root / "plugins"]
+    target_dirs = [root / "src", root / "backend", root / "auth", root / "connectors", root / "plugins"]
     python_files = []
 
     for d in target_dirs:

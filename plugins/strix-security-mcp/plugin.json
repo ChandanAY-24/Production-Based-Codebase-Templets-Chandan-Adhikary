@@ -1,0 +1,6 @@
+{
+  "name": "strix-security-mcp",
+  "version": "1.0.0",
+  "description": "AST scanner & dependency vulnerability checker",
+  "enabled": true
+}

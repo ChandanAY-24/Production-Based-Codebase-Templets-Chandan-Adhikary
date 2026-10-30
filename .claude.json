@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "constitution": "docs/CONSTITUTION.md",
   "rules": "docs/RULES.md",
+  "securitySpec": "specs/001-Spec-Security-guide.md",
+  "securityInstruction": "Follow specs/001-Spec-Security-guide.md for every security review and every new feature.",
   "skillsPath": "skills/",
   "hooks": {
     "preRun": "hooks/pre-agent-run.sh",
@@ -21,10 +23,6 @@
     "strix-security": {
       "command": "python",
       "args": ["plugins/strix-security-mcp/server.py"]
-    },
-    "omniroute": {
-      "command": "python",
-      "args": ["plugins/omniroute-proxy/proxy.py"]
     }
   }
 }

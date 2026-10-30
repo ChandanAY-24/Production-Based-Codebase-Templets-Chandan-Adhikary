@@ -1,0 +1,39 @@
+{
+  "commit-guardian": {
+    "enabled": true,
+    "PreToolUse": [
+      {
+        "matcher": "run_command",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python hooks/commit-guardian.py"
+          }
+        ]
+      }
+    ]
+  },
+  "pre-agent-session": {
+    "enabled": true,
+    "SessionStart": [
+      {
+        "type": "command",
+        "command": "python connectors/vector-memory/store.py --sync"
+      }
+    ]
+  },
+  "post-code-generation": {
+    "enabled": true,
+    "PostToolUse": [
+      {
+        "matcher": "edit_file",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python -m unittest discover -s tests -p \"test_*.py\""
+          }
+        ]
+      }
+    ]
+  }
+}

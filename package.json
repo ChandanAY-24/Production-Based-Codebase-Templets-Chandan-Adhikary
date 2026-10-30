@@ -6,7 +6,14 @@
   "scripts": {
     "start": "python backend/main.py",
     "test": "python -m unittest discover -s tests -p \"test_*.py\"",
+    "test:pytest": "pytest -v",
     "guard": "python hooks/commit-guardian.py",
+    "hook:pre-run": "python connectors/vector-memory/store.py --sync",
+    "hook:post-gen": "python hooks/commit-guardian.py --ast-only",
+    "plugin:graphify": "python plugins/graphify-mcp/server.py --dump",
+    "plugin:strix": "python plugins/strix-security-mcp/server.py",
+    "plugin:playwright": "python plugins/playwright-mcp/server.py",
+    "security:audit": "python -m pip_audit -r requirements.txt",
     "memory:sync": "python connectors/vector-memory/store.py --sync",
     "openclaw:check": "python connectors/openclaw-daemon/daemon.py --once"
   },
