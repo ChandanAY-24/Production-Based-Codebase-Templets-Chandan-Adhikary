@@ -1,15 +1,17 @@
 # Slash Command Workflow: /code-testing
 Description: Runs deterministic automated test suites, negative security verifications, and regression tests.
 
-## Trigger
-- User invokes `/code-testing` or asks to run tests.
+> **Order Invariant:** When automated workflows trigger, `code-testing` executes FIRST, followed by `code-review`.
 
-## Execution
+## Execution Structure
 Refer to the primary skill definition:
 - [code-testing SKILL.md](../skills/code-testing/SKILL.md)
 
-1. Verify `.venv` and set test environment variables (`$env:ENVIRONMENT = "testing"`).
-2. Execute primary pytest runner: `.venv\Scripts\python.exe -m pytest -v`.
-3. If targeted, run `tests/test_auth.py`, `tests/test_security.py`, or `tests/test_services.py`.
-4. Ensure 100% pass rate with zero regression errors.
-
+1. **test-writer Phase:**
+   - Verify negative security tests and boundary tests exist in `tests/test_*.py`.
+2. **test-runner Phase:**
+   - Execute Pytest suite:
+     ```powershell
+     $env:PYTHONPATH="."; $env:ENVIRONMENT="testing"; .venv\Scripts\python.exe -m pytest -v
+     ```
+   - Enforce 100% pass rate. If any test fails, STOP and do not proceed to code-review.

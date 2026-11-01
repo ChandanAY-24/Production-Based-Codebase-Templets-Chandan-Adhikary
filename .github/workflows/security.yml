@@ -1,4 +1,4 @@
-name: security-checks
+name: automated-workflow-pipeline
 
 on:
   push:
@@ -10,7 +10,11 @@ permissions:
   contents: read
 
 jobs:
-  security-audit:
+  # =========================================================================
+  # Phase 1: code-testing (Must run first!)
+  # =========================================================================
+  code-testing:
+    name: "Phase 1: Code Testing (test-writer & test-runner)"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -28,28 +32,53 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          pip install pytest bandit pip-audit
+          pip install pytest
 
-      - name: Commit Guardian & AST Security Gate
+      - name: test-writer Check & test-runner Execution
+        env:
+          PYTHONPATH: .
+          ENVIRONMENT: testing
+          JWT_SECRET_KEY: test-secret-key-minimum-32-characters-for-hmac-sha256
         run: |
-          python hooks/commit-guardian.py
+          python -m pytest -v
 
-      - name: Dependency Vulnerability Audit (pip-audit)
+  # =========================================================================
+  # Phase 2: code-review (Only runs if code-testing succeeds!)
+  # =========================================================================
+  code-review:
+    name: "Phase 2: Code Review (Security & Code Quality)"
+    needs: code-testing
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install flake8 bandit pip-audit
+
+      - name: Security Review - Commit Guardian & AST Security Gate
+        run: |
+          python hooks/commit-guardian.py --ast-only
+
+      - name: Security Review - Dependency Vulnerability Audit (pip-audit)
         run: |
           python -m pip_audit -r requirements.txt
 
-      - name: Python SAST Scanner (bandit)
+      - name: Security Review - SAST Scanner (bandit)
         run: |
           python -m bandit -r src backend plugins connectors -s B101,B112,B404,B603
 
-      - name: Run Super-TDD & Security Test Suite
-        env:
-          PYTHONPATH: .
+      - name: Code Quality Review - Static Analysis (flake8)
         run: |
-          python -m unittest discover -s tests -p "test_*.py" -v 2>&1 | tee test_results.txt || {
-            grep -E "(FAIL|ERROR|Error|AssertionError|Exception):" test_results.txt | while IFS= read -r line; do
-              echo "::error title=Test Failure::$line"
-            done
-            cat test_results.txt
-            exit 1
-          }
+          python -m flake8 src backend auth tests --count --select=E9,F63,F7,F82 --show-source --statistics

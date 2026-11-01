@@ -1,0 +1,52 @@
+[
+  {
+    "error_id": "ERR-001",
+    "date_time": "2026-10-30 08:45:00",
+    "path": "hooks/*.sh",
+    "phase": "Environment/Hooks",
+    "error": "Line-ending discrepancies: shell scripts failing with '\\r' unexpected carriage return character in POSIX runtimes.",
+    "resolve": "Added .gitattributes with '* text=auto eol=lf' for all *.sh shell scripts and hook files.",
+    "verified": "YES (Verified on git checkout)",
+    "checks": "Always enforce LF line endings on executable scripts via .gitattributes."
+  },
+  {
+    "error_id": "ERR-002",
+    "date_time": "2026-10-30 09:12:00",
+    "path": "connectors/vector-memory/store.py",
+    "phase": "Concurrency/Memory",
+    "error": "sqlite3.OperationalError: database is locked when multiple agent tasks execute concurrent writes.",
+    "resolve": "Enabled 'PRAGMA journal_mode=WAL;' and 'PRAGMA busy_timeout=5000;' on SQLite initialization.",
+    "verified": "YES (Concurrency stress verified)",
+    "checks": "Always configure WAL journal mode and busy_timeout on SQLite stores."
+  },
+  {
+    "error_id": "ERR-003",
+    "date_time": "2026-10-30 11:30:00",
+    "path": "tests/test_security.py",
+    "phase": "Testing/Sandbox",
+    "error": "Socket binding EACCES permission failure during live HTTP server test in restricted sandbox.",
+    "resolve": "Implemented mock transport and in-memory test clients instead of live TCP network binding.",
+    "verified": "YES (Pytest passing in sandbox)",
+    "checks": "Never rely on physical TCP listening sockets in unit test suites; use TestClient / mocks."
+  },
+  {
+    "error_id": "ERR-004",
+    "date_time": "2026-11-01 16:18:00",
+    "path": "auth/session.py",
+    "phase": "Validation/Lint",
+    "error": "Flake8 F821 undefined name 'Any' in type annotation: 'List[Dict[str, Any]]'.",
+    "resolve": "Added 'Any' to 'from typing import Optional, List, Dict, Any' in auth/session.py.",
+    "verified": "YES (Flake8 passed 0 errors)",
+    "checks": "Run /validate or flake8 before completing auth/session model modifications."
+  },
+  {
+    "error_id": "ERR-005",
+    "date_time": "2026-11-01 16:20:00",
+    "path": ".agents/scripts/workflow-orchestrator.py",
+    "phase": "Terminal/Encoding",
+    "error": "UnicodeEncodeError: 'charmap' codec can't encode emoji character '\\u2705' on Windows cp1252 terminal.",
+    "resolve": "Replaced unicode emojis with standard ASCII indicators: [PASS], [FAIL], [SUCCESS].",
+    "verified": "YES (Clean exit code 0 on Windows)",
+    "checks": "Use pure ASCII tags [PASS]/[FAIL] in Python CLI scripts destined for Windows command line."
+  }
+]

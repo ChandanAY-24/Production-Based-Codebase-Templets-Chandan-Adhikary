@@ -6,9 +6,10 @@ description: "Generates and audits production release readiness checklists, secu
 # `/checklist` — Production Release Readiness & Quality Sign-Off Checklist
 
 > **Purpose:** Release gate sign-off, deployment checklists, and invariant audits  
+> **Spreadsheet:** `Task-Checklist.xlsx` (Sync with `.agents/scripts/task-checklist.py`)  
 > **Reference:** `docs/CODE-REVIEW.md`, `specs/001-Spec-Security-guide.md`, `specs/002-Spec-Git-Workflow-Rules.md`
 
-Use this slash command before merging a pull request, tagging a milestone release, or deploying code to verify that all release invariants are fulfilled.
+Use this slash command before merging a pull request, tagging a milestone release, or deploying code to verify that all release invariants are fulfilled and synchronized in `Task-Checklist.xlsx`.
 
 ---
 

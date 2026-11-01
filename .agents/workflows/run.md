@@ -1,15 +1,14 @@
-# Slash Command Workflow: /run
-Description: Starts the application locally, runs smoke health checks, and verifies security headers before deployment.
+# Slash Command Workflow: /run (Deprecated Alias -> /code-runner)
+Description: Legacy alias redirecting to `/code-runner` for local application execution and smoke verification.
 
-## Trigger
-- User invokes `/run` or asks to run the project locally / smoke check before deployment.
+> **Notice:** `/run` is now superseded by `/code-runner`. Please invoke `/code-runner` directly.
 
 ## Execution
-Refer to the primary skill definition:
-- [run SKILL.md](../skills/run/SKILL.md)
+Refer to the primary `/code-runner` workflow and skill definition:
+- [code-runner Workflow](code-runner.md)
+- [code-runner SKILL.md](../skills/code-runner/SKILL.md)
 
-1. Run automated pre-deployment smoke check: `.venv\Scripts\python.exe .agents/scripts/smoke-runner.py`.
-2. For live interactive server: run `$env:PYTHONPATH="."; .venv\Scripts\python.exe backend/main.py`.
-3. Verify `GET /api/v1/health` and security headers (`X-Content-Type-Options: nosniff`).
-4. Optionally serve `frontend/index.html` on port 3000.
-
+1. Launch smoke checks or local server via `/code-runner`:
+   ```powershell
+   .venv\Scripts\python.exe .agents/scripts/smoke-runner.py
+   ```

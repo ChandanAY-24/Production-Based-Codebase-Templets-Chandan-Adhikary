@@ -7,7 +7,7 @@ Provides thread-safe session storage, idle/absolute expiration, and user session
 import secrets
 import threading
 import time
-from typing import Optional, List, Dict
+from typing import Optional, List, Dict, Any
 from auth.models import Session
 
 
