@@ -163,7 +163,7 @@ class APIRequestHandler(BaseHTTPRequestHandler):
 
         try:
             # Public endpoint: Health check
-            if parsed.path == "/health":
+            if parsed.path in ("/health", "/api/v1/health"):
                 self._send_response_json(200, data={"status": "healthy"}, request_id=req_id)
                 return
 

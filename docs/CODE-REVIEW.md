@@ -48,11 +48,14 @@ Reviewers (both AI agents and human engineers) must evaluate diffs against four 
 - [ ] **Negative Security Tests:** At least one negative test included for every new security control or route (e.g., unauthorized access, invalid token, rate limit breach).
 - [ ] **Regression Free:** Existing tests remain intact; contracts in `docs/APIS.md` are preserved.
 
-### 2.4 Scalability & Performance (specs/003 Standards)
-- [ ] **No N+1 Queries:** Database operations utilize batch fetching or eager loading.
+### 2.4 Scalability & Performance (docs/PERFORMANCE-SCALABILITY-CHECKS.md)
+- [ ] **15-Pillar Compliance:** Verified against the 15 distributed systems pillars in `docs/PERFORMANCE-SCALABILITY-CHECKS.md`.
+- [ ] **No N+1 Queries:** Database operations utilize batch fetching or eager loading; indexes verified.
 - [ ] **Bounded Result Sets:** List endpoints enforce mandatory pagination (`limit` capped at $\le 100$, default $\le 20$).
-- [ ] **Connection Reuse:** Database and HTTP clients reuse connection pools; no ad-hoc connection instantiation per request.
-- [ ] **Stateless Execution:** Endpoints do not hold in-memory state that prevents horizontal scaling.
+- [ ] **Connection Reuse:** Database and HTTP clients reuse connection pools with hard upper bounds; no ad-hoc socket creation.
+- [ ] **Stateless Execution:** Endpoints do not hold in-memory state or local sessions that prevent horizontal scaling.
+- [ ] **Latency SLA:** Verified p95 latency $\le 500\text{ms}$; circuit breakers active on external HTTP calls.
+- [ ] **Idempotency & Resilience:** Mutations accept `Idempotency-Key`; retries use jittered exponential backoff.
 
 ---
 

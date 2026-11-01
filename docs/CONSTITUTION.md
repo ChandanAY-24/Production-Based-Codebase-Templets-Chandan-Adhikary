@@ -31,3 +31,12 @@ flowchart LR
 1. **Test-First (Super-TDD):** No production code is accepted without a corresponding failing test (RED) that turns passing (GREEN) post-implementation.
 2. **Deterministic Security:** Any input crossing external network boundaries must be sanitized through strict schema validators (Zod / Pydantic). Never trust client payload shapes.
 3. **Commit Guardian Verification:** Every code modification must satisfy `hooks/commit-guardian.py` and pass AST security scans before merge or release.
+
+---
+
+## 4. Performance & Scalability Prime Directive
+> Reference: `docs/PERFORMANCE-SCALABILITY-CHECKS.md`
+
+1. **Stateless Compute & Bounded Resources:** Applications must remain stateless across cluster instances. Connection pools and thread pools must have explicit hard limits.
+2. **SLA Compliance:** Production endpoints must satisfy $p95 \le 500\text{ms}$ latency and maintain zero unindexed database queries.
+3. **15 Distributed Pillars:** Every design and deployment must comply with the 15 pillars (Scalability, Availability, Reliability, Fault Tolerance, Resilience, Latency, Throughput, Consistency, Durability, Partition Tolerance, CAP, Load Balancing, Horizontal/Vertical/Auto Scaling).

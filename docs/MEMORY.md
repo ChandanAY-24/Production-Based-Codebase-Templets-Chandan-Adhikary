@@ -22,6 +22,7 @@ flowchart LR
 - **[FACT-003]** Git repository initialized with strict hooks enabled in `hooks/`.
 - **[FACT-004]** All production patches require Super-TDD unit tests passing before commit.
 - **[FACT-005]** Security guardian script `hooks/commit-guardian.py` guards against credential leaks and untested code.
+- **[FACT-006]** Context window & token optimization rules enforced in `.agents/rules/token-optimization.md` with `.agents/hooks/token-guard.py` guardian and `context-optimization` skill.
 
 ---
 
@@ -30,3 +31,4 @@ flowchart LR
 |---|---|---|---|
 | 2026-10-30 | Initial Setup | Initialized SDD Agentic Coding framework with full docs, skills, hooks, and plugins. | Antigravity |
 | 2026-10-30 | MCP Plugins | Configured MCP tool manifests for Graphify, Playwright, Strix, and OmniRoute. | Antigravity |
+| 2026-11-01 | Token Optimization | Established production context window & token optimization rules, hooks, and skill without output fidelity loss. | Antigravity |

@@ -70,6 +70,7 @@ stateDiagram-v2
 | **TSK-303** | High-Traffic Concurrency Stress Harness (100–10k Users) | P2 | `PENDING` | `specs/003 Phase 5` | SRE / DevOps | Locust / k6 load test scenarios validating p95 $\le 500\text{ ms}$ under 1k concurrent users. |
 | **TSK-304** | Frontend Core Web Vitals & Asset Optimization | P2 | `PENDING` | `specs/003 Phase 2` | Frontend Engineer | Achieve LCP $\le 2.5\text{s}$, INP $\le 200\text{ms}$, CLS $\le 0.1$, bundle optimization. |
 | **TSK-305** | Shared Cache & Redis Tier Implementation | P2 | `PENDING` | `specs/003 Phase 5` | Systems Architect | Implement cache-aside layer for hot tasks and auth session tokens. |
+| **TSK-306** | Production Context Window & Token Optimization Engine | P1 | `VERIFIED` | `.agents/rules/token-optimization.md` | Systems Architect | Enforce surgical reads, log sanitization hook, context skill, zero quality loss. |
 
 ---
 
